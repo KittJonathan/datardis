@@ -1,6 +1,6 @@
 Package: datardis
 Title: Data from the Doctor Who series
-Version: 0.0.0.9000
+Version: 0.0.1
 Authors@R: 
     person("Jonathan", "Kitt", , "jonathan.kitt@protonmail.com", role = c("aut", "cre"))
 Description: Explore data related to the Doctor Who TV series.
