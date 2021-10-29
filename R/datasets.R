@@ -5,7 +5,7 @@
 #' @format This data frame contains the following columns:
 #' \describe{
 #'   \item{\code{era}}{"classic" or "revived"}
-#'   \item{\code{season_number}}{Sesaon number}
+#'   \item{\code{season_number}}{Season number}
 #'   \item{\code{serial_title}}{Serial title if available}
 #'   \item{\code{story_number}}{Story number}
 #'   \item{\code{episode_number}}{Episode number in season}
