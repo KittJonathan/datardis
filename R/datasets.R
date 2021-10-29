@@ -6,8 +6,8 @@
 #' \describe{
 #'   \item{\code{era}}{"classic" or "revived"}
 #'   \item{\code{season_number}}{Sesaon number}
-#'   \item{\code{serial_title}}{Serial title if available (classic era and forthcoming 13th season)}
-#'   \item{\code{story_number}}{Story number, starts with the very first episode from the classic era}
+#'   \item{\code{serial_title}}{Serial title if available}
+#'   \item{\code{story_number}}{Story number}
 #'   \item{\code{episode_number}}{Episode number in season}
 #'   \item{\code{title}}{Episode Title}
 #'   \item{\code{type}}{"episode" or "special"}
@@ -21,7 +21,7 @@
 #'
 #' @import dplyr
 #'
-#' @source \url{https://en.wikipedia.org/wiki/List_of_Doctor_Who_episodes_(2005-present)}
+#' @source \url{tinyurl.com/4p4dkp5b}
 #'
 #' @examples
 #' library(dplyr)
