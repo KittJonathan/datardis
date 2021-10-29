@@ -27,4 +27,4 @@
 #' library(dplyr)
 #' episodes %>%
 #'     filter(type == "special")
-"season_summary"
+"episodes"
