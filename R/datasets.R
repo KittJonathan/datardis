@@ -21,7 +21,7 @@
 #'
 #' @import dplyr
 #'
-#' @source \url{tinyurl.com/4p4dkp5b}
+#' @source \url{https://en.wikipedia.org/wiki/List_of_Doctor_Who_episodes_(2005-present)}
 #'
 #' @examples
 #' library(dplyr)
