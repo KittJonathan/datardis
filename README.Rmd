@@ -30,14 +30,13 @@ devtools::install_github("KittJonathan/datardis")
 ```
 ## Example
 
-Load list of episodes:
+Find maximum number of UK viewers:
 
 ```{r example}
 ## Load packages
 library(datardis)
-library(magrittr)
 
 ## Load dataset
-episodes
+max(episodes$uk_viewers)
 
 ```
