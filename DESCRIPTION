@@ -1,5 +1,5 @@
 Package: datardis
-Title: Data from the Doctor Who series
+Title: Data from the Doctor Who Series
 Version: 0.0.1
 Authors@R: 
     person("Jonathan", "Kitt", , "jonathan.kitt@protonmail.com", role = c("aut", "cre"))
