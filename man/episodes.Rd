@@ -8,9 +8,9 @@
 This data frame contains the following columns:
 \describe{
 \item{\code{era}}{"classic" or "revived"}
-\item{\code{season_number}}{Sesaon number}
-\item{\code{serial_title}}{Serial title if available (classic era and forthcoming 13th season)}
-\item{\code{story_number}}{Story number, starts with the very first episode from the classic era}
+\item{\code{season_number}}{Season number}
+\item{\code{serial_title}}{Serial title if available}
+\item{\code{story_number}}{Story number}
 \item{\code{episode_number}}{Episode number in season}
 \item{\code{title}}{Episode Title}
 \item{\code{type}}{"episode" or "special"}
@@ -23,7 +23,7 @@ This data frame contains the following columns:
 }
 }
 \source{
-\url{https://en.wikipedia.org/wiki/List_of_Doctor_Who_episodes_(2005-present)}
+\url{tinyurl.com/4p4dkp5b}
 }
 \usage{
 episodes
