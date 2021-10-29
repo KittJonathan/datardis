@@ -30,13 +30,14 @@ devtools::install_github("KittJonathan/datardis")
 ```
 ## Example
 
-Extract data from special episodes:
+Load list of episodes:
 
 ```{r example}
-## Load package
+## Load packages
 library(datardis)
+library(magrittr)
 
-## Extract special episodes
-episodes %>% 
-  filter(type == "special")
+## Load dataset
+episodes
+
 ```
