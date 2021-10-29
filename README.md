@@ -27,7 +27,7 @@ Find maximum number of UK viewers:
 ## Load packages
 library(datardis)
 
-## Load dataset
+## Find maximum number of UK viewers (in millions)
 max(episodes$uk_viewers)
 #> [1] 13.31
 ```
