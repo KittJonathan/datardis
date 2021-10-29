@@ -1,3 +1,4 @@
 ^datardis\.Rproj$
 ^\.Rproj\.user$
 misc
+^LICENSE\.md$
