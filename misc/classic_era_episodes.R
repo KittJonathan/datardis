@@ -35,6 +35,71 @@ s01 <- s01 %>%
   select(era, season_number, serial_title, story_number, episode_number, episode_title, type, everything())
 
 
+# Season 02 ----
+
+s02 <- tables[[4]]
+
+names(s02) <- c("story_number", "episode_number", "serial_title",
+                "episode_title", "director", "writer", "first_aired",
+                "production_code", "uk_viewers", "rating")
+
+s02 <- s02 %>%
+  mutate(era = "classic",
+         season_number = 2,
+         episode_title = gsub('.*"(.*)".*', "\\1", episode_title),
+         type = "episode",
+         first_aired = as.Date(gsub(".*\\((.*)\\).*", "\\1", first_aired))) %>%
+  select(era, season_number, serial_title, story_number, episode_number, episode_title, type, everything())
+
+# Season 03 ----
+
+s03 <- tables[[5]]
+
+names(s03) <- c("story_number", "episode_number", "serial_title",
+                "episode_title", "director", "writer", "first_aired",
+                "production_code", "uk_viewers", "rating")
+
+s03 <- s03 %>%
+  mutate(era = "classic",
+         season_number = 3,
+         episode_title = gsub('.*"(.*)".*', "\\1", episode_title),
+         type = "episode",
+         first_aired = as.Date(gsub(".*\\((.*)\\).*", "\\1", first_aired))) %>%
+  select(era, season_number, serial_title, story_number, episode_number, episode_title, type, everything())
+
+# Season 04 ----
+
+s04a <- tables[[6]]
+
+names(s04a) <- c("story_number", "episode_number", "serial_title",
+                "episode_title", "director", "writer", "first_aired",
+                "production_code", "uk_viewers", "rating")
+
+s04a <- s04a %>%
+  mutate(era = "classic",
+         season_number = 4,
+         episode_title = gsub('.*"(.*)".*', "\\1", episode_title),
+         type = "episode",
+         first_aired = as.Date(gsub(".*\\((.*)\\).*", "\\1", first_aired))) %>%
+  select(era, season_number, serial_title, story_number, episode_number, episode_title, type, everything())
+
+s04b <- tables[[7]]
+
+names(s04b) <- c("story_number", "episode_number", "serial_title",
+                 "episode_title", "director", "writer", "first_aired",
+                 "production_code", "uk_viewers", "rating")
+
+s04b <- s04b %>%
+  mutate(era = "classic",
+         season_number = 4,
+         episode_title = gsub('.*"(.*)".*', "\\1", episode_title),
+         type = "episode",
+         first_aired = as.Date(gsub(".*\\((.*)\\).*", "\\1", first_aired))) %>%
+  select(era, season_number, serial_title, story_number, episode_number, episode_title, type, everything())
+
+s04 <- rbind(s04a, s04b)
+rm(s04a, s04b)
+
 # Join all tables ----
 
 episodes <- rbind(s01, s02, s03, s04, sp01, s05, s06, s07, sp02, s08, s09,
