@@ -242,16 +242,268 @@ names(s13) <- c("story_number", "episode_number", "serial_title",
 
 s13 <- s13 %>%
   mutate(era = "classic",
-         season_number = 1,
+         season_number = 13,
          episode_title = gsub('.*"(.*)".*', "\\1", episode_title),
          type = "episode",
          first_aired = as.Date(gsub(".*\\((.*)\\).*", "\\1", first_aired))) %>%
   select(era, season_number, serial_title, story_number, episode_number, episode_title, type, everything())
 
+# Season 14 ----
+
+s14 <- tables[[17]]
+
+names(s14) <- c("story_number", "episode_number", "serial_title",
+                "episode_title", "director", "writer", "first_aired",
+                "production_code", "uk_viewers", "rating")
+
+s14 <- s14 %>%
+  mutate(era = "classic",
+         season_number = 14,
+         episode_title = gsub('.*"(.*)".*', "\\1", episode_title),
+         type = "episode",
+         first_aired = as.Date(gsub(".*\\((.*)\\).*", "\\1", first_aired))) %>%
+  select(era, season_number, serial_title, story_number, episode_number, episode_title, type, everything())
+
+# Season 15 ----
+
+s15 <- tables[[18]]
+
+names(s15) <- c("story_number", "episode_number", "serial_title",
+                "episode_title", "director", "writer", "first_aired",
+                "production_code", "uk_viewers", "rating")
+
+s15 <- s15 %>%
+  mutate(era = "classic",
+         season_number = 15,
+         episode_title = gsub('.*"(.*)".*', "\\1", episode_title),
+         type = "episode",
+         first_aired = as.Date(gsub(".*\\((.*)\\).*", "\\1", first_aired))) %>%
+  select(era, season_number, serial_title, story_number, episode_number, episode_title, type, everything())
+
+# Season 16 ----
+
+s16 <- tables[[19]]
+
+names(s16) <- c("story_number", "episode_number", "serial_title",
+                "episode_title", "director", "writer", "first_aired",
+                "production_code", "uk_viewers", "rating")
+
+s16 <- s16 %>%
+  mutate(era = "classic",
+         season_number = 16,
+         episode_title = gsub('.*"(.*)".*', "\\1", episode_title),
+         type = "episode",
+         first_aired = as.Date(gsub(".*\\((.*)\\).*", "\\1", first_aired))) %>%
+  select(era, season_number, serial_title, story_number, episode_number, episode_title, type, everything())
+
+# Season 17 ----
+
+s17 <- tables[[20]]
+
+names(s17) <- c("story_number", "episode_number", "serial_title",
+                "episode_title", "director", "writer", "first_aired",
+                "production_code", "uk_viewers", "rating")
+
+s17 <- s17 %>%
+  mutate(era = "classic",
+         season_number = 17,
+         episode_title = gsub('.*"(.*)".*', "\\1", episode_title),
+         type = "episode",
+         first_aired = as.Date(gsub(".*\\((.*)\\).*", "\\1", first_aired))) %>%
+  select(era, season_number, serial_title, story_number, episode_number, episode_title, type, everything())
+
+# Season 18 ----
+
+s18 <- tables[[21]]
+
+names(s18) <- c("story_number", "episode_number", "serial_title",
+                "episode_title", "director", "writer", "first_aired",
+                "production_code", "uk_viewers", "rating")
+
+s18 <- s18 %>%
+  mutate(era = "classic",
+         season_number = 18,
+         episode_title = gsub('.*"(.*)".*', "\\1", episode_title),
+         type = "episode",
+         first_aired = as.Date(gsub(".*\\((.*)\\).*", "\\1", first_aired))) %>%
+  select(era, season_number, serial_title, story_number, episode_number, episode_title, type, everything())
+
+# Season 19 ----
+
+s19 <- tables[[22]]
+
+names(s19) <- c("story_number", "episode_number", "serial_title",
+                "episode_title", "director", "writer", "first_aired",
+                "production_code", "uk_viewers", "rating")
+
+s19 <- s19 %>%
+  mutate(era = "classic",
+         season_number = 19,
+         episode_title = gsub('.*"(.*)".*', "\\1", episode_title),
+         type = "episode",
+         first_aired = as.Date(gsub(".*\\((.*)\\).*", "\\1", first_aired))) %>%
+  select(era, season_number, serial_title, story_number, episode_number, episode_title, type, everything())
+
+# Season 20 ----
+
+s20 <- tables[[23]]
+
+names(s20) <- c("story_number", "episode_number", "serial_title",
+                "episode_title", "director", "writer", "first_aired",
+                "production_code", "uk_viewers", "rating", "rem1", "rem2", "rem3")
+
+s20 <- s20 %>%
+  filter(story_number != "Special") %>%
+  mutate(era = "classic",
+         season_number = 20,
+         episode_title = gsub('.*"(.*)".*', "\\1", episode_title),
+         type = c(rep("episode", 22), "special"),
+         first_aired = as.Date(gsub(".*\\((.*)\\).*", "\\1", first_aired))) %>%
+  select(era, season_number, serial_title, story_number, episode_number, episode_title,
+         type, director, writer, first_aired, production_code, uk_viewers, rating)
+
+# Season 21 ----
+
+s21a <- tables[[24]]
+
+names(s21a) <- c("story_number", "episode_number", "serial_title",
+                "episode_title", "director", "writer", "first_aired",
+                "production_code", "uk_viewers", "rating")
+
+s21a <- s21a %>%
+  mutate(era = "classic",
+         season_number = 21,
+         episode_title = gsub('.*"(.*)".*', "\\1", episode_title),
+         type = "episode",
+         first_aired = as.Date(gsub(".*\\((.*)\\).*", "\\1", first_aired))) %>%
+  select(era, season_number, serial_title, story_number, episode_number, episode_title, type, everything())
+
+s21b <- tables[[25]]
+
+names(s21b) <- c("story_number", "episode_number", "serial_title",
+                 "episode_title", "director", "writer", "first_aired",
+                 "production_code", "uk_viewers", "rating")
+
+s21b <- s21b %>%
+  mutate(era = "classic",
+         season_number = 21,
+         episode_title = gsub('.*"(.*)".*', "\\1", episode_title),
+         type = "episode",
+         first_aired = as.Date(gsub(".*\\((.*)\\).*", "\\1", first_aired))) %>%
+  select(era, season_number, serial_title, story_number, episode_number, episode_title, type, everything())
+
+s21 <- rbind(s21a, s21b)
+rm(s21a, s21b)
+
+# Season 22 ----
+
+s22 <- tables[[26]]
+
+names(s22) <- c("story_number", "episode_number", "serial_title",
+                 "episode_title", "director", "writer", "first_aired",
+                 "production_code", "uk_viewers", "rating")
+
+s22 <- s22 %>%
+  mutate(era = "classic",
+         season_number = 22,
+         episode_title = gsub('.*"(.*)".*', "\\1", episode_title),
+         type = "episode",
+         first_aired = as.Date(gsub(".*\\((.*)\\).*", "\\1", first_aired))) %>%
+  select(era, season_number, serial_title, story_number, episode_number, episode_title, type, everything())
+
+# Season 23 ----
+
+s23 <- tables[[27]]
+
+names(s23) <- c("story_number", "episode_number", "serial_title",
+                "episode_title", "director", "writer", "first_aired",
+                "production_code", "uk_viewers", "rating")
+
+s23 <- s23 %>%
+  mutate(era = "classic",
+         season_number = 23,
+         episode_title = gsub('.*"(.*)".*', "\\1", episode_title),
+         type = "episode",
+         first_aired = as.Date(gsub(".*\\((.*)\\).*", "\\1", first_aired))) %>%
+  select(era, season_number, serial_title, story_number, episode_number, episode_title, type, everything())
+
+# Season 24 ----
+
+s24 <- tables[[28]]
+
+names(s24) <- c("story_number", "episode_number", "serial_title",
+                "episode_title", "director", "writer", "first_aired",
+                "production_code", "uk_viewers", "rating")
+
+s24 <- s24 %>%
+  mutate(era = "classic",
+         season_number = 24,
+         episode_title = gsub('.*"(.*)".*', "\\1", episode_title),
+         type = "episode",
+         first_aired = as.Date(gsub(".*\\((.*)\\).*", "\\1", first_aired))) %>%
+  select(era, season_number, serial_title, story_number, episode_number, episode_title, type, everything())
+
+# Season 25 ----
+
+s25 <- tables[[29]]
+
+names(s25) <- c("story_number", "episode_number", "serial_title",
+                "episode_title", "director", "writer", "first_aired",
+                "production_code", "uk_viewers", "rating")
+
+s25 <- s25 %>%
+  mutate(era = "classic",
+         season_number = 25,
+         episode_title = gsub('.*"(.*)".*', "\\1", episode_title),
+         type = "episode",
+         first_aired = as.Date(gsub(".*\\((.*)\\).*", "\\1", first_aired))) %>%
+  select(era, season_number, serial_title, story_number, episode_number, episode_title, type, everything())
+
+# Season 26 ----
+
+s26 <- tables[[30]]
+
+names(s26) <- c("story_number", "episode_number", "serial_title",
+                "episode_title", "director", "writer", "first_aired",
+                "production_code", "uk_viewers", "rating")
+
+s26 <- s26 %>%
+  mutate(era = "classic",
+         season_number = 26,
+         episode_title = gsub('.*"(.*)".*', "\\1", episode_title),
+         type = "episode",
+         first_aired = as.Date(gsub(".*\\((.*)\\).*", "\\1", first_aired))) %>%
+  select(era, season_number, serial_title, story_number, episode_number, episode_title, type, everything())
+
+# Television movie ----
+
+tvm <- tables[[31]]
+
+names(tvm) <- c("story_number", "episode_title", "director", "writer", "first_aired",
+                "production_code", "uk_viewers", "rating")
+
+tvm <- tvm %>%
+  mutate(era = "classic",
+         season_number = NA,
+         serial_title = NA,
+         episode_number = NA,
+         episode_title = gsub('.*"(.*)".*', "\\1", episode_title),
+         type = "movie",
+         first_aired = as.Date("1996-05-27")) %>%
+  select(era, season_number, serial_title, story_number, episode_number, episode_title, type, everything())
+
 # Join all tables ----
 
-episodes <- rbind(s01, s02, s03, s04, sp01, s05, s06, s07, sp02, s08, s09,
-                  s10, s11, s12) %>%
+episodes <- rbind(s01, s02, s03, s04, s05, s06, s07, s08, s09, s10, s11, s12,
+                  s13, s14, s15, s16, s17, s18, s19, s20, s21, s22, s23, s24,
+                  s25, s26, tvm)
+
+rm(s01, s02, s03, s04, s05, s06, s07, s08, s09, s10, s11, s12,
+   s13, s14, s15, s16, s17, s18, s19, s20, s21, s22, s23, s24,
+   s25, s26, tvm, tables, webpage, url)
+
+
+%>%
   dplyr::mutate(episode_number = ifelse(type == "special", NA, episode_number)) %>%
   dplyr::mutate(episode_number = as.numeric(episode_number),
                 uk_viewers = as.numeric(uk_viewers),
