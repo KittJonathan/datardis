@@ -12,14 +12,13 @@ This data frame contains the following columns:
 \item{\code{serial_title}}{Serial title if available}
 \item{\code{story_number}}{Story number}
 \item{\code{episode_number}}{Episode number in season}
-\item{\code{title}}{Episode Title}
+\item{\code{episode_title}}{Episode Title}
 \item{\code{type}}{"episode" or "special"}
-\item{\code{director}}{Episode's director}
-\item{\code{writer}}{Episode's writer}
 \item{\code{first_aired}}{Date the episode first aired in the U.K.}
 \item{\code{production_code}}{Episode's production code if available}
 \item{\code{uk_viewers}}{Number of U.K. viewers (millions)}
 \item{\code{rating}}{Episode's rating}
+\item{\code{duration}}{Episode's duration in minutes}
 }
 }
 \source{
@@ -29,7 +28,7 @@ This data frame contains the following columns:
 episodes
 }
 \description{
-Summary of all episodes from the revived Doctor Who era (2005-present)
+List of all episodes from the revived Doctor Who era (2005-present)
 }
 \examples{
 library(dplyr)

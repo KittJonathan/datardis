@@ -66,7 +66,7 @@
 #'
 #' @examples
 #' library(dplyr)
-#' directors %>%
+#' writers %>%
 #'     count(writer) %>%
 #'     arrange(desc(n)) %>%
 #'     head(5)
