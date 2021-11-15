@@ -19,24 +19,45 @@ knitr::opts_chunk$set(
 <!-- badges: end -->
 
 The goal of datardis is to provide datasets from the Doctor Who TV series.
+Three datasets are available :  
+**episodes** : list of all episodes from the revived era (2005-present)  
+**directors** : list of directors   
+**writers** : list of writers
 
 ## Installation
 
-You can install the development version from [GitHub](https://github.com/) with:
+You can download and install the package from CRAN:
+```{r CRAN, echo=TRUE, eval=FALSE, warning=FALSE, message=FALSE}
+install.packages("datardis")
+```
 
-``` r
-# install.packages("devtools")
+
+You can install the development version from [GitHub](https://github.com/) with:
+```{r dev version, echo=TRUE, eval=FALSE, warning=FALSE, message=FALSE}
 devtools::install_github("KittJonathan/datardis")
 ```
-## Example
 
-Find maximum number of UK viewers:
+## Examples
 
-```{r example}
+```{r examples, message=FALSE, warning=FALSE}
+
 ## Load packages
 library(datardis)
+library(tidyverse)
 
 ## Find maximum number of UK viewers (in millions)
-max(episodes$uk_viewers)
+max(episodes$uk_viewers, na.rm = TRUE)
+
+## Find who wrote the most episodes
+writers %>%
+     count(writer) %>%
+     arrange(desc(n)) %>%
+     head(5)
+
+## Find who directed the most episodes
+directors %>%
+     count(director) %>%
+     arrange(desc(n)) %>%
+     head(5)
 
 ```
