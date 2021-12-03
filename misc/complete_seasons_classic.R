@@ -1,4 +1,4 @@
-# Extract data for complete seasons from revived era
+# Extract data for complete seasons from classic era
 
 # Packages ----
 
@@ -8,7 +8,7 @@ library(tidyverse)
 # Extract tables from url ----
 
 # set url
-url <- "https://en.wikipedia.org/wiki/List_of_Doctor_Who_episodes_(2005-present)"
+url <- "https://en.wikipedia.org/wiki/List_of_Doctor_Who_episodes_(1963-1989)"
 
 # read the HTML code from the website
 webpage <- rvest::read_html(url)
@@ -23,20 +23,19 @@ rm(url, webpage)
 
 s01 <- tables[[3]]
 
-names(s01) <- c("story_number", "episode_number", "episode_title",
+names(s01) <- c("story_number", "episode_number", "serial_title", "episode_title",
                  "director", "writer", "first_aired", "production_code",
                  "uk_viewers", "rating")
 
 s01_episodes <- s01 %>%
   select(story_number:episode_title, first_aired:rating) %>%
-  mutate(era = "revived",
+  mutate(era = "classic",
          season_number = 1,
-         serial_title = NA,
          episode_title = gsub('.*"(.*)".*', "\\1", episode_title),
          type = "episode",
          first_aired = as.Date(gsub(".*\\((.*)\\).*", "\\1", first_aired)),
          production_code = as.character(production_code),
-         duration = c(45, 44, 44, 45, 42, 45, 44, 45, 45, 45, 45, 45, 45)) %>%
+         duration = 25) %>%
   select(era, season_number, serial_title, story_number, episode_number,
          episode_title, type, everything())
 
