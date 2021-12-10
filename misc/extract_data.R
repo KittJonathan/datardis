@@ -8,26 +8,26 @@ library(tidyverse)
 # Extract tables from url ----
 
 # set urls
-url <- "https://en.wikipedia.org/wiki/List_of_Doctor_Who_episodes_(1963-1989)"
+classic_url <- "https://en.wikipedia.org/wiki/List_of_Doctor_Who_episodes_(1963-1989)"
 
 # read the HTML code from the website
-webpage <- rvest::read_html(url)
+classic_webpage <- rvest::read_html(classic_url)
 
 # use CSS selectors to scrape the table and convert to data frames
-tables <- rvest::html_nodes(webpage, "table.wikitable") %>%
+classic_tables <- rvest::html_nodes(classic_webpage, "table.wikitable") %>%
   rvest::html_table(header = TRUE, na.strings = c(NA, ""), convert = TRUE)
 
-rm(url, webpage)
+rm(classic_url, classic_webpage)
 
-# Season 01 ----
+# Classic era - season 01 ----
 
-s01 <- tables[[3]]
+classic_s01 <- classic_tables[[3]]
 
-names(s01) <- c("story_number", "episode_number", "serial_title", "episode_title",
-                 "director", "writer", "first_aired", "production_code",
-                 "uk_viewers", "rating")
+names(classic_s01) <- c("story_number", "episode_number", "serial_title", "episode_title",
+                        "director", "writer", "first_aired", "production_code",
+                        "uk_viewers", "rating")
 
-s01 <- s01 %>%
+classic_s01 <- classic_s01 %>%
   mutate(era = "classic",
          season_number = 1,
          episode_title = gsub('.*"(.*)".*', "\\1", episode_title),
@@ -41,28 +41,57 @@ s01 <- s01 %>%
          episode_title, type, director, writer, first_aired, production_code,
          uk_viewers, rating, duration)
 
-s01_episodes <- s01 %>%
+classic_s01_episodes <- classic_s01 %>%
   select(era:type, first_aired:duration)
 
-s01_directors <- s01 %>%
+classic_s01_directors <- classic_s01 %>%
   select(era:season_number, story_number, episode_number, director)
 
-s01_writers <- s01 %>%
+classic_s01_writers <- classic_s01 %>%
   select(era:season_number, story_number, episode_number, writer) %>%
   mutate(writer = str_replace(writer, "\\s*\\([^\\)]+\\)", "")) %>%
   separate(writer, c("writer1", "writer2"), " and ") %>%
   pivot_longer(!(era:episode_number), names_to = "writer_name", values_drop_na = TRUE) %>%
   select(era:episode_number, writer = value)
 
-s10_writers <- s10 %>%
-  select(s)
-  filter(!story_number %in% c("Special (2016)", "Special (2017)", "Series")) %>%
-  select(story_number, writer) %>%
-  separate(writer, c("writer1", "writer2"), " and ") %>%
-  pivot_longer(!story_number, names_to = "writer_name", values_drop_na = TRUE) %>%
-  select(story_number, writer = value)
+rm(classic_s01)
 
-rm(s01)
+# Classic era - season 02 ----
+
+classic_s02 <- classic_tables[[4]]
+
+names(classic_s02) <- c("story_number", "episode_number", "serial_title", "episode_title",
+                        "director", "writer", "first_aired", "production_code",
+                        "uk_viewers", "rating")
+
+classic_s02 <- classic_s02 %>%
+  mutate(era = "classic",
+         season_number = 2,
+         episode_title = gsub('.*"(.*)".*', "\\1", episode_title),
+         type = "episode",
+         first_aired = as.Date(gsub(".*\\((.*)\\).*", "\\1", first_aired)),
+         production_code = as.character(production_code),
+         duration = 25) %>%
+  group_by(story_number) %>%
+  mutate(episode_number = row_number()) %>%
+  select(era, season_number, serial_title, story_number, episode_number,
+         episode_title, type, director, writer, first_aired, production_code,
+         uk_viewers, rating, duration)
+
+classic_s02_episodes <- classic_s02 %>%
+  select(era:type, first_aired:duration)
+
+classic_s02_directors <- classic_s02 %>%
+  select(era:season_number, story_number, episode_number, director) %>%
+  mutate(director = str_replace(director, "\\s*\\([^\\)]+\\)", "")) %>%
+  separate(director, c("director1", "director2"), " and ") %>%
+  pivot_longer(!(era:episode_number), names_to = "director_name", values_drop_na = TRUE) %>%
+  select(era:episode_number, director = value)
+
+classic_s02_writers <- classic_s02 %>%
+  select(era:season_number, story_number, episode_number, writer)
+
+rm(classic_s02)
 
 # Season 02 ----
 
