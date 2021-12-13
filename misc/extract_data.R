@@ -93,6 +93,45 @@ classic_s02_writers <- classic_s02 %>%
 
 rm(classic_s02)
 
+# Classic era - season 03 ----
+
+classic_s03 <- classic_tables[[5]]
+
+names(classic_s03) <- c("story_number", "episode_number", "serial_title", "episode_title",
+                        "director", "writer", "first_aired", "production_code",
+                        "uk_viewers", "rating")
+
+classic_s03 <- classic_s03 %>%
+  mutate(era = "classic",
+         season_number = 3,
+         episode_title = gsub('.*"(.*)".*', "\\1", episode_title),
+         type = "episode",
+         first_aired = as.Date(gsub(".*\\((.*)\\).*", "\\1", first_aired)),
+         production_code = as.character(production_code),
+         duration = 25) %>%
+  mutate(serial_title = case_when(first_aired == "1965-10-09" ~ "Mission the the Unknown",
+                                  TRUE ~ serial_title)) %>%
+  group_by(story_number) %>%
+  mutate(episode_number = row_number()) %>%
+  select(era, season_number, serial_title, story_number, episode_number,
+         episode_title, type, director, writer, first_aired, production_code,
+         uk_viewers, rating, duration)
+
+classic_s03_episodes <- classic_s03 %>%
+  select(era:type, first_aired:duration)
+
+classic_s03_directors <- classic_s03 %>%
+  select(era:season_number, story_number, episode_number, director) %>%
+  mutate(director = str_replace(director, "\\s*\\([^\\)]+\\)", "")) %>%
+  separate(director, c("director1", "director2"), " and ") %>%
+  pivot_longer(!(era:episode_number), names_to = "director_name", values_drop_na = TRUE) %>%
+  select(era:episode_number, director = value)
+
+classic_s03_writers <- classic_s03 %>%
+  select(era:season_number, story_number, episode_number, writer)
+
+rm(classic_s02)
+
 # Season 02 ----
 
 s02 <- tables[[4]]
