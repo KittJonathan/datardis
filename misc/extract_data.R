@@ -294,6 +294,56 @@ classic_s05_writers <- classic_s05 %>%
 
 rm(classic_s05)
 
+# Classic era - season 06 ----
+
+classic_s06 <- classic_tables[[9]]
+
+names(classic_s06) <- c("story_number", "episode_number", "serial_title", "episode_title",
+                        "director", "writer", "first_aired", "production_code",
+                        "uk_viewers", "rating")
+
+classic_s06 <- classic_s06 %>%
+  mutate(era = "classic",
+         season_number = 5,
+         episode_title = gsub('.*"(.*)".*', "\\1", episode_title),
+         type = "episode",
+         first_aired = as.Date(gsub(".*\\((.*)\\).*", "\\1", first_aired)),
+         production_code = as.character(production_code),
+         duration = c(rep(25, 5), rep(20, 5), rep(25, 34))) %>%
+  group_by(story_number) %>%
+  mutate(episode_number = row_number()) %>%
+  ungroup() %>%
+  mutate(missing_episode = c(rep(0, 10), 1, 0, 0, 1, rep(0, 14),
+                             1, 0, rep(1, 4), rep(0, 10))) %>%
+  select(era, season_number, serial_title, story_number, episode_number,
+         episode_title, missing_episode, type, director, writer, first_aired,
+         production_code, uk_viewers, rating, duration) %>%
+  mutate(episode_title = case_when(story_number == 44 & episode_number == 3 ~ "Episode 3",
+                                   story_number == 46 & episode_number == 2 ~ "Episode Two",
+                            TRUE ~ episode_title))
+
+classic_s06_episodes <- classic_s06 %>%
+  select(era:type, first_aired:duration)
+
+classic_s06_directors <- classic_s06 %>%
+  select(era:season_number, story_number, episode_number, director) %>%
+  mutate(director = str_replace(director, "\\s*\\([^\\)]+\\)", "")) %>%
+  separate(director, c("director1", "director2"), " and ") %>%
+  pivot_longer(!(era:episode_number), names_to = "director_name", values_drop_na = TRUE) %>%
+  select(era:episode_number, director = value)
+
+classic_s06_writers <- classic_s06 %>%
+  select(era:season_number, story_number, episode_number, writer) %>%
+  mutate(writer = case_when(story_number == 44 ~ "Norman Ashby and Mervyn Haisman and Henry Lincoln",
+                            story_number == 46 ~ "Derrick Sherwin and Kit Pedler",
+                            TRUE ~ writer)) %>%
+  mutate(writer = str_replace(writer, "\\s*\\([^\\)]+\\)", "")) %>%
+  separate(writer, c("writer1", "writer2", "writer3"), " and ") %>%
+  pivot_longer(!(era:episode_number), names_to = "writer_name", values_drop_na = TRUE) %>%
+  select(era:episode_number, writer = value)
+
+rm(classic_s06)
+
 # Season 02 ----
 
 s02 <- tables[[4]]
