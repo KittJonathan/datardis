@@ -3,7 +3,9 @@
 # Packages ----
 
 library(tidyverse)
-
+library(rvest)
+#library(XML)
+#library(httr)
 
 # Extract tables from urls ----
 
@@ -24,13 +26,119 @@ revived_tables <- rvest::html_nodes(revived_webpage, "table.wikitable") %>%
 
 rm(classic_webpage, revived_webpage, classic_url, revived_url)
 
+# Tests ----
+
+classic_homepage_url <- "https://en.wikipedia.org/wiki/List_of_Doctor_Who_episodes_(1963-1989)"
+
+page <- rvest::read_html(classic_homepage_url)
+
+links_body <- page %>% rvest::html_node(css = "#bodyContent") %>%
+  rvest::html_nodes("a") %>%
+  rvest::html_attr("href")
+
+head(links_body, 10)
+
+rvest::read_html(classic_homepage_url) %>%
+  rvest::html_nodes("a")
+
 # Classic era - season 01 ----
+
+classic_s01_urls <- tibble(
+  story_number = 1:8,
+  url = c("https://en.wikipedia.org/wiki/An_Unearthly_Child",
+          "https://en.wikipedia.org/wiki/The_Daleks",
+          "https://en.wikipedia.org/wiki/The_Edge_of_Destruction",
+          "https://en.wikipedia.org/wiki/Marco_Polo_(Doctor_Who)",
+          "https://en.wikipedia.org/wiki/The_Keys_of_Marinus",
+          "https://en.wikipedia.org/wiki/The_Aztecs_(Doctor_Who)",
+          "https://en.wikipedia.org/wiki/The_Sensorites",
+          "https://en.wikipedia.org/wiki/The_Reign_of_Terror_(Doctor_Who)"))
+
+classic_s01_episodes <- list()
+
+for (i in 1:nrow(classic_s01_urls)) {
+
+  classic_s01_episodes[i] <- rvest::read_html(classic_s01_urls$url[[i]]) %>%
+    rvest::html_nodes("table.wikitable") %>%
+    rvest::html_table(header = TRUE, na.strings = c(NA, ""), convert = TRUE)
+}
+
+classic_s01_table <- dplyr::bind_rows(classic_s01_episodes)
+
+names(classic_s01_table) <- c("episode_number", "episode_title",
+                              "duration", "uk_air_date", "uk_viewers",
+                              "appreciation_index")
+classic_s01_table <- classic_s01_table %>%
+  dplyr::mutate(episode_title = gsub('.*"(.*)".*', "\\1", episode_title),
+                uk_air_date = as.Date(gsub(".*\\((.*)\\).*", "\\1", uk_air_date))) %>%
+  tidyr::separate(duration, c("min", "sec"), ":") %>%
+  dplyr::mutate(min = as.integer(min),
+                sec = as.integer(sec)) %>%
+  dplyr::mutate(duration = (60 * min) + sec) %>%
+  dplyr::select(episode_number, episode_title, duration,
+                uk_air_date, uk_viewers, appreciation_index)
+
+
+classic_s01_writers <- classic_s01 %>%
+  select(era:season_number, story_number, episode_number, writer) %>%
+  mutate(writer = str_replace(writer, "\\s*\\([^\\)]+\\)", "")) %>%
+  separate(writer, c("writer1", "writer2"), " and ") %>%
+  pivot_longer(!(era:episode_number), names_to = "writer_name", values_drop_na = TRUE) %>%
+  select(era:episode_number, writer = value)
+
+classic_s01_table
+
+classic_s01 <- classic_s01 %>%
+  mutate(era = "classic",
+         season_number = 1,
+         episode_title = gsub('.*"(.*)".*', "\\1", episode_title),
+         type = "episode",
+         first_aired = as.Date(gsub(".*\\((.*)\\).*", "\\1", first_aired)),
+         production_code = as.character(production_code),
+         duration = 25) %>%
+  group_by(story_number) %>%
+  mutate(episode_number = row_number()) %>%
+  ungroup() %>%
+  mutate(missing_episode = c(rep(0, 13), rep(1, 7), rep(0, 19), rep(1, 2), 0)) %>%
+  select(era, season_number, serial_title, story_number, episode_number,
+         episode_title, missing_episode, type, director, writer, first_aired,
+         production_code, uk_viewers, rating, duration)
+
+
+classic_url <- "https://en.wikipedia.org/wiki/List_of_Doctor_Who_episodes_(1963-1989)"
+
+classic_webpage <- rvest::read_html(classic_url)
+
+classic_tables <- rvest::html_nodes(classic_webpage, "table.wikitable") %>%
+  rvest::html_table(header = TRUE, na.strings = c(NA, ""), convert = TRUE)
+
+
+
 
 classic_s01 <- classic_tables[[3]]
 
 names(classic_s01) <- c("story_number", "episode_number", "serial_title", "episode_title",
                         "director", "writer", "first_aired", "production_code",
                         "uk_viewers", "rating")
+
+s01_st01 <- rvest::read_html("https://en.wikipedia.org/wiki/An_Unearthly_Child") %>%
+  rvest::html_nodes("table.wikitable") %>%
+  rvest::html_table(header = TRUE, na.strings = c(NA, ""), convert = TRUE)
+
+s01_st01
+
+s01_st01 <- "https://en.wikipedia.org/wiki/An_Unearthly_Child"
+s01_st02 <- "https://en.wikipedia.org/wiki/The_Daleks"
+s01_st03 <- "https://en.wikipedia.org/wiki/The_Edge_of_Destruction"
+s01_st04 <- "https://en.wikipedia.org/wiki/Marco_Polo_(Doctor_Who)"
+s01_st05 <- "https://en.wikipedia.org/wiki/The_Keys_of_Marinus"
+s01_st06 <- "https://en.wikipedia.org/wiki/The_Aztecs_(Doctor_Who)"
+s01_st07 <- "https://en.wikipedia.org/wiki/The_Sensorites"
+s01_st08 <- "https://en.wikipedia.org/wiki/The_Reign_of_Terror_(Doctor_Who)"
+
+s01_st01_webpage <- rvest::read_html(s01_st01)
+s01_st01_tables <- rvest::html_nodes(s01_st01_webpage, "table.wikitable") %>%
+  rvest::html_table(header = TRUE, na.strings = c(NA, ""), convert = TRUE)
 
 classic_s01 <- classic_s01 %>%
   mutate(era = "classic",
