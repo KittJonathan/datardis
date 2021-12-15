@@ -151,7 +151,101 @@ classic_s03_writers <- classic_s03 %>%
   pivot_longer(!(era:episode_number), names_to = "writer_name", values_drop_na = TRUE) %>%
   select(era:episode_number, writer = value)
 
-rm(classic_s02)
+rm(classic_s03)
+
+# Classic era - season 04 ----
+
+classic_s04a <- classic_tables[[6]]
+
+names(classic_s04a) <- c("story_number", "episode_number", "serial_title", "episode_title",
+                        "director", "writer", "first_aired", "production_code",
+                        "uk_viewers", "rating")
+
+classic_s04a <- classic_s04a %>%
+  mutate(era = "classic",
+         season_number = 4,
+         episode_title = gsub('.*"(.*)".*', "\\1", episode_title),
+         type = "episode",
+         first_aired = as.Date(gsub(".*\\((.*)\\).*", "\\1", first_aired)),
+         production_code = as.character(production_code),
+         duration = 25) %>%
+  group_by(story_number) %>%
+  mutate(episode_number = row_number()) %>%
+  ungroup() %>%
+  mutate(missing_episode = c(rep(1, 4), rep(0, 3), 1)) %>%
+  select(era, season_number, serial_title, story_number, episode_number,
+         episode_title, missing_episode, type, director, writer, first_aired,
+         production_code, uk_viewers, rating, duration)
+
+classic_s04a_episodes <- classic_s04a %>%
+  select(era:type, first_aired:duration)
+
+classic_s04a_directors <- classic_s04a %>%
+  select(era:season_number, story_number, episode_number, director) %>%
+  mutate(director = str_replace(director, "\\s*\\([^\\)]+\\)", "")) %>%
+  separate(director, c("director1", "director2"), " and ") %>%
+  pivot_longer(!(era:episode_number), names_to = "director_name", values_drop_na = TRUE) %>%
+  select(era:episode_number, director = value)
+
+classic_s04a_writers <- classic_s04a %>%
+  select(era:season_number, story_number, episode_number, writer) %>%
+  mutate(writer = str_replace(writer, "\\s*\\([^\\)]+\\)", "")) %>%
+  separate(writer, c("writer1", "writer2"), " and ") %>%
+  pivot_longer(!(era:episode_number), names_to = "writer_name", values_drop_na = TRUE) %>%
+  select(era:episode_number, writer = value)
+
+rm(classic_s04a)
+
+
+
+classic_s04b <- classic_tables[[7]]
+
+names(classic_s04b) <- c("story_number", "episode_number", "serial_title", "episode_title",
+                         "director", "writer", "first_aired", "production_code",
+                         "uk_viewers", "rating")
+
+classic_s04b <- classic_s04b %>%
+  mutate(era = "classic",
+         season_number = 4,
+         episode_title = gsub('.*"(.*)".*', "\\1", episode_title),
+         type = "episode",
+         first_aired = as.Date(gsub(".*\\((.*)\\).*", "\\1", first_aired)),
+         production_code = as.character(production_code),
+         duration = 25) %>%
+  group_by(story_number) %>%
+  mutate(episode_number = row_number()) %>%
+  ungroup() %>%
+  mutate(missing_episode = c(rep(1, 11), rep(0, 2), rep(1, 2), 0, 1, 0,
+                             rep(1, 4), 0, 1, 0, rep(1, 4), 0, rep(1, 5))) %>%
+  select(era, season_number, serial_title, story_number, episode_number,
+         episode_title, missing_episode, type, director, writer, first_aired,
+         production_code, uk_viewers, rating, duration)
+
+classic_s04b_episodes <- classic_s04b %>%
+  select(era:type, first_aired:duration)
+
+classic_s04b_directors <- classic_s04b %>%
+  select(era:season_number, story_number, episode_number, director) %>%
+  mutate(director = str_replace(director, "\\s*\\([^\\)]+\\)", "")) %>%
+  separate(director, c("director1", "director2"), " and ") %>%
+  pivot_longer(!(era:episode_number), names_to = "director_name", values_drop_na = TRUE) %>%
+  select(era:episode_number, director = value)
+
+classic_s04b_writers <- classic_s04b %>%
+  select(era:season_number, story_number, episode_number, writer) %>%
+  mutate(writer = str_replace(writer, "\\s*\\([^\\)]+\\)", "")) %>%
+  separate(writer, c("writer1", "writer2"), " and ") %>%
+  pivot_longer(!(era:episode_number), names_to = "writer_name", values_drop_na = TRUE) %>%
+  select(era:episode_number, writer = value)
+
+rm(classic_s04b)
+
+classic_s04_episodes <- rbind(classic_s04a_episodes, classic_s04b_episodes)
+classic_s04_directors <- rbind(classic_s04a_directors, classic_s04b_directors)
+classic_s04_writers <- rbind(classic_s04a_writers, classic_s04b_writers)
+
+rm(classic_s04a_directors, classic_s04a_episodes, classic_s04a_writers,
+   classic_s04b_directors, classic_s04b_episodes, classic_s04b_writers)
 
 # Season 02 ----
 
