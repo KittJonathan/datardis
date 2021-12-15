@@ -247,6 +247,53 @@ classic_s04_writers <- rbind(classic_s04a_writers, classic_s04b_writers)
 rm(classic_s04a_directors, classic_s04a_episodes, classic_s04a_writers,
    classic_s04b_directors, classic_s04b_episodes, classic_s04b_writers)
 
+# Classic era - season 05 ----
+
+classic_s05 <- classic_tables[[8]]
+
+names(classic_s05) <- c("story_number", "episode_number", "serial_title", "episode_title",
+                        "director", "writer", "first_aired", "production_code",
+                        "uk_viewers", "rating")
+
+classic_s05 <- classic_s05 %>%
+  mutate(era = "classic",
+         season_number = 5,
+         episode_title = gsub('.*"(.*)".*', "\\1", episode_title),
+         type = "episode",
+         first_aired = as.Date(gsub(".*\\((.*)\\).*", "\\1", first_aired)),
+         production_code = as.character(production_code),
+         duration = 25) %>%
+  group_by(story_number) %>%
+  mutate(episode_number = row_number()) %>%
+  ungroup() %>%
+  mutate(missing_episode = c(rep(0, 4), 1, 0, rep(1, 4),
+                             0, rep(1, 2), rep(0, 11), 1, rep(0, 3), rep(1, 8),
+                             0, rep(1, 2), 1)) %>%
+  select(era, season_number, serial_title, story_number, episode_number,
+         episode_title, missing_episode, type, director, writer, first_aired,
+         production_code, uk_viewers, rating, duration) %>%
+  mutate(writer = case_when(serial_title == "The Wheel in Space" ~ "David Whitaker and Kit Pedler",
+                            TRUE ~ writer))
+
+classic_s05_episodes <- classic_s05 %>%
+  select(era:type, first_aired:duration)
+
+classic_s05_directors <- classic_s05 %>%
+  select(era:season_number, story_number, episode_number, director) %>%
+  mutate(director = str_replace(director, "\\s*\\([^\\)]+\\)", "")) %>%
+  separate(director, c("director1", "director2"), " and ") %>%
+  pivot_longer(!(era:episode_number), names_to = "director_name", values_drop_na = TRUE) %>%
+  select(era:episode_number, director = value)
+
+classic_s05_writers <- classic_s05 %>%
+  select(era:season_number, story_number, episode_number, writer) %>%
+  mutate(writer = str_replace(writer, "\\s*\\([^\\)]+\\)", "")) %>%
+  separate(writer, c("writer1", "writer2"), " and ") %>%
+  pivot_longer(!(era:episode_number), names_to = "writer_name", values_drop_na = TRUE) %>%
+  select(era:episode_number, writer = value)
+
+rm(classic_s05)
+
 # Season 02 ----
 
 s02 <- tables[[4]]
