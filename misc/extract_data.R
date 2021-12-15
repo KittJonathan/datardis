@@ -5,7 +5,7 @@
 library(tidyverse)
 
 
-# Extract tables from url ----
+# Extract tables from urls ----
 
 # set urls
 classic_url <- "https://en.wikipedia.org/wiki/List_of_Doctor_Who_episodes_(1963-1989)"
@@ -42,9 +42,11 @@ classic_s01 <- classic_s01 %>%
          duration = 25) %>%
   group_by(story_number) %>%
   mutate(episode_number = row_number()) %>%
+  ungroup() %>%
+  mutate(missing_episode = c(rep(0, 13), rep(1, 7), rep(0, 19), rep(1, 2), 0)) %>%
   select(era, season_number, serial_title, story_number, episode_number,
-         episode_title, type, director, writer, first_aired, production_code,
-         uk_viewers, rating, duration)
+         episode_title, missing_episode, type, director, writer, first_aired,
+         production_code, uk_viewers, rating, duration)
 
 classic_s01_episodes <- classic_s01 %>%
   select(era:type, first_aired:duration)
