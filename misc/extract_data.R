@@ -1245,6 +1245,147 @@ classic_s26_writers <- classic_s26 %>%
 
 rm(classic_s26)
 
+# Classic era - television movie ----
+
+classic_movie <- classic_tables[[31]]
+
+names(classic_movie) <- c("story_number", "episode_title",
+                        "director", "writer", "first_aired", "production_code",
+                        "uk_viewers", "rating")
+
+names(classic_s26) <- c("episode_number", "serial_title")
+
+classic_movie <- classic_movie %>%
+  mutate(era = "classic",
+         season_number = NA,
+         serial_title = NA,
+         episode_number = NA,
+         episode_title = gsub('.*"(.*)".*', "\\1", episode_title),
+         type = "film",
+         first_aired = as.Date("1996-05-27"),
+         production_code = as.character(production_code),
+         duration = 89) %>%
+  group_by(story_number) %>%
+  mutate(episode_number = NA) %>%
+  ungroup() %>%
+  mutate(missing_episode = 0) %>%
+  select(era, season_number, serial_title, story_number, episode_number,
+         episode_title, missing_episode, type, director, writer, first_aired,
+         production_code, uk_viewers, rating, duration)
+
+classic_movie_episodes <- classic_movie %>%
+  select(era:type, first_aired:duration)
+
+classic_movie_directors <- classic_movie %>%
+  select(era:season_number, story_number, episode_number, director) %>%
+  mutate(director = str_replace(director, "\\s*\\([^\\)]+\\)", "")) %>%
+  separate(director, c("director1", "director2"), " and ") %>%
+  pivot_longer(!(era:episode_number), names_to = "director_name", values_drop_na = TRUE) %>%
+  select(era:episode_number, director = value)
+
+classic_movie_writers <- classic_movie %>%
+  select(era:season_number, story_number, episode_number, writer) %>%
+  mutate(writer = str_replace(writer, "\\s*\\([^\\)]+\\)", "")) %>%
+  separate(writer, c("writer1", "writer2"), " and ") %>%
+  pivot_longer(!(era:episode_number), names_to = "writer_name", values_drop_na = TRUE) %>%
+  select(era:episode_number, writer = value)
+
+rm(classic_movie)
+
+# Regroup classic era data ----
+
+classic_episodes <- rbind(classic_s01_episodes, classic_s02_episodes,
+                          classic_s03_episodes, classic_s04_episodes,
+                          classic_s05_episodes, classic_s06_episodes,
+                          classic_s07_episodes, classic_s08_episodes,
+                          classic_s09_episodes, classic_s10_episodes,
+                          classic_s11_episodes, classic_s12_episodes,
+                          classic_s13_episodes, classic_s14_episodes,
+                          classic_s15_episodes, classic_s16_episodes,
+                          classic_s17_episodes, classic_s18_episodes,
+                          classic_s19_episodes, classic_s20_episodes,
+                          classic_s21_episodes, classic_s22_episodes,
+                          classic_s23_episodes, classic_s24_episodes,
+                          classic_s25_episodes, classic_s26_episodes,
+                          classic_movie_episodes)
+
+rm(classic_s01_episodes, classic_s02_episodes,
+  classic_s03_episodes, classic_s04_episodes,
+  classic_s05_episodes, classic_s06_episodes,
+  classic_s07_episodes, classic_s08_episodes,
+  classic_s09_episodes, classic_s10_episodes,
+  classic_s11_episodes, classic_s12_episodes,
+  classic_s13_episodes, classic_s14_episodes,
+  classic_s15_episodes, classic_s16_episodes,
+  classic_s17_episodes, classic_s18_episodes,
+  classic_s19_episodes, classic_s20_episodes,
+  classic_s21_episodes, classic_s22_episodes,
+  classic_s23_episodes, classic_s24_episodes,
+  classic_s25_episodes, classic_s26_episodes,
+  classic_movie_episodes)
+
+classic_directors <- rbind(classic_s01_directors, classic_s02_directors,
+                          classic_s03_directors, classic_s04_directors,
+                          classic_s05_directors, classic_s06_directors,
+                          classic_s07_directors, classic_s08_directors,
+                          classic_s09_directors, classic_s10_directors,
+                          classic_s11_directors, classic_s12_directors,
+                          classic_s13_directors, classic_s14_directors,
+                          classic_s15_directors, classic_s16_directors,
+                          classic_s17_directors, classic_s18_directors,
+                          classic_s19_directors, classic_s20_directors,
+                          classic_s21_directors, classic_s22_directors,
+                          classic_s23_directors, classic_s24_directors,
+                          classic_s25_directors, classic_s26_directors,
+                          classic_movie_directors)
+
+rm(classic_s01_directors, classic_s02_directors,
+   classic_s03_directors, classic_s04_directors,
+   classic_s05_directors, classic_s06_directors,
+   classic_s07_directors, classic_s08_directors,
+   classic_s09_directors, classic_s10_directors,
+   classic_s11_directors, classic_s12_directors,
+   classic_s13_directors, classic_s14_directors,
+   classic_s15_directors, classic_s16_directors,
+   classic_s17_directors, classic_s18_directors,
+   classic_s19_directors, classic_s20_directors,
+   classic_s21_directors, classic_s22_directors,
+   classic_s23_directors, classic_s24_directors,
+   classic_s25_directors, classic_s26_directors,
+   classic_movie_directors)
+
+classic_writers <- rbind(classic_s01_writers, classic_s02_writers,
+                          classic_s03_writers, classic_s04_writers,
+                          classic_s05_writers, classic_s06_writers,
+                          classic_s07_writers, classic_s08_writers,
+                          classic_s09_writers, classic_s10_writers,
+                          classic_s11_writers, classic_s12_writers,
+                          classic_s13_writers, classic_s14_writers,
+                          classic_s15_writers, classic_s16_writers,
+                          classic_s17_writers, classic_s18_writers,
+                          classic_s19_writers, classic_s20_writers,
+                          classic_s21_writers, classic_s22_writers,
+                          classic_s23_writers, classic_s24_writers,
+                          classic_s25_writers, classic_s26_writers,
+                          classic_movie_writers)
+
+rm(classic_s01_writers, classic_s02_writers,
+   classic_s03_writers, classic_s04_writers,
+   classic_s05_writers, classic_s06_writers,
+   classic_s07_writers, classic_s08_writers,
+   classic_s09_writers, classic_s10_writers,
+   classic_s11_writers, classic_s12_writers,
+   classic_s13_writers, classic_s14_writers,
+   classic_s15_writers, classic_s16_writers,
+   classic_s17_writers, classic_s18_writers,
+   classic_s19_writers, classic_s20_writers,
+   classic_s21_writers, classic_s22_writers,
+   classic_s23_writers, classic_s24_writers,
+   classic_s25_writers, classic_s26_writers,
+   classic_movie_writers)
+
+rm(classic_tables)
+
 # Season 02 ----
 
 s02 <- tables[[4]]
