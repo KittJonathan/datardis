@@ -918,6 +918,50 @@ classic_s19_writers <- classic_s19 %>%
 
 rm(classic_s19)
 
+# Classic era - season 20 ----
+
+classic_s20 <- classic_tables[[23]]
+
+names(classic_s20) <- c("story_number", "episode_number", "serial_title", "episode_title",
+                        "director", "writer", "first_aired", "production_code",
+                        "uk_viewers", "rating", "rem1", "rem2", "rem3")
+
+classic_s20 <- classic_s20 %>%
+  filter(!story_number %in% c("Special", "Series")) %>%
+  mutate(era = "classic",
+         season_number = 20,
+         episode_title = gsub('.*"(.*)".*', "\\1", episode_title),
+         type = c(rep("episode", 22), "special"),
+         first_aired = as.Date(gsub(".*\\((.*)\\).*", "\\1", first_aired)),
+         production_code = as.character(production_code),
+         duration = c(rep(25, 22), 90)) %>%
+  group_by(story_number) %>%
+  mutate(episode_number = row_number()) %>%
+  ungroup() %>%
+  mutate(missing_episode = 0) %>%
+  select(era, season_number, serial_title, story_number, episode_number,
+         episode_title, missing_episode, type, director, writer, first_aired,
+         production_code, uk_viewers, rating, duration)
+
+classic_s20_episodes <- classic_s20 %>%
+  select(era:type, first_aired:duration)
+
+classic_s20_directors <- classic_s20 %>%
+  select(era:season_number, story_number, episode_number, director) %>%
+  mutate(director = str_replace(director, "\\s*\\([^\\)]+\\)", "")) %>%
+  separate(director, c("director1", "director2"), " & ") %>%
+  pivot_longer(!(era:episode_number), names_to = "director_name", values_drop_na = TRUE) %>%
+  select(era:episode_number, director = value)
+
+classic_s20_writers <- classic_s20 %>%
+  select(era:season_number, story_number, episode_number, writer) %>%
+  mutate(writer = str_replace(writer, "\\s*\\([^\\)]+\\)", "")) %>%
+  separate(writer, c("writer1", "writer2"), " & ") %>%
+  pivot_longer(!(era:episode_number), names_to = "writer_name", values_drop_na = TRUE) %>%
+  select(era:episode_number, writer = value)
+
+rm(classic_s20)
+
 # Season 02 ----
 
 s02 <- tables[[4]]
