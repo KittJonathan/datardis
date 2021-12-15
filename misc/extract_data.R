@@ -9,15 +9,20 @@ library(tidyverse)
 
 # set urls
 classic_url <- "https://en.wikipedia.org/wiki/List_of_Doctor_Who_episodes_(1963-1989)"
+revived_url <- "https://en.wikipedia.org/wiki/List_of_Doctor_Who_episodes_(2005-present)"
 
-# read the HTML code from the website
+# read the HTML code from the websites
 classic_webpage <- rvest::read_html(classic_url)
+revived_webpage <- rvest::read_html(revived_url)
 
 # use CSS selectors to scrape the table and convert to data frames
 classic_tables <- rvest::html_nodes(classic_webpage, "table.wikitable") %>%
   rvest::html_table(header = TRUE, na.strings = c(NA, ""), convert = TRUE)
 
-rm(classic_url, classic_webpage)
+revived_tables <- rvest::html_nodes(revived_webpage, "table.wikitable") %>%
+  rvest::html_table(header = TRUE, na.strings = c(NA, ""), convert = TRUE)
+
+rm(classic_webpage, revived_webpage, classic_url, revived_url)
 
 # Classic era - season 01 ----
 
