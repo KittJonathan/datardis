@@ -68,6 +68,7 @@ classic_s01_table <- dplyr::bind_rows(classic_s01_episodes)
 names(classic_s01_table) <- c("episode_number", "episode_title",
                               "duration", "uk_air_date", "uk_viewers",
                               "appreciation_index")
+
 classic_s01_table <- classic_s01_table %>%
   dplyr::mutate(episode_title = gsub('.*"(.*)".*', "\\1", episode_title),
                 uk_air_date = as.Date(gsub(".*\\((.*)\\).*", "\\1", uk_air_date))) %>%
