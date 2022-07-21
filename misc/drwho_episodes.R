@@ -676,6 +676,6 @@ rm(sp03_directors, sp03_episodes, sp03_writers)
 
 # Set variable types ----
 
-episodes <- episodes %>%
+drwho_episodes <- drwho_episodes %>%
   mutate(uk_viewers = as.numeric(uk_viewers),
          rating = as.numeric(rating))

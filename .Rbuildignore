@@ -5,3 +5,4 @@ misc
 ^README\.Rmd$
 ^cran-comments\.md$
 ^CRAN-RELEASE$
+^CRAN-SUBMISSION$

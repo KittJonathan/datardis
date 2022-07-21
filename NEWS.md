@@ -1,3 +1,9 @@
+# datardis 0.0.3
+
+* Added latest Doctor Who episodes
+* Renamed Dr Who datasets
+* Added Torchwood episodes, directors and writers datasets
+
 # datardis 0.0.2
 
 * Data split in 3 datasets : episodes, writers, directors  
