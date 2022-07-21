@@ -1,4 +1,4 @@
-#' List of episodes
+#' List of Dr Who episodes
 #'
 #' List of all episodes from the revived Doctor Who era (2005-present)
 #'
@@ -19,16 +19,17 @@
 #' }
 #'
 #' @import dplyr
+#' @import magrittr
 #'
 #' @source \url{https://en.wikipedia.org/wiki/List_of_Doctor_Who_episodes_(2005-present)}
 #'
 #' @examples
 #' library(dplyr)
-#' episodes %>%
+#' drwho_episodes %>%
 #'     filter(type == "special")
-"episodes"
+"drwho_episodes"
 
-#' List of directors
+#' List of Dr Who directors
 #'
 #' List of directors for all episodes from the revived Doctor Who era (2005-present)
 #'
@@ -44,13 +45,13 @@
 #'
 #' @examples
 #' library(dplyr)
-#' directors %>%
+#' drwho_directors %>%
 #'     count(director) %>%
 #'     arrange(desc(n)) %>%
 #'     head(5)
-"directors"
+"drwho_directors"
 
-#' List of writers
+#' List of Dr Who writers
 #'
 #' List of writers for all episodes from the revived Doctor Who era (2005-present)
 #'
@@ -66,8 +67,8 @@
 #'
 #' @examples
 #' library(dplyr)
-#' writers %>%
+#' drwho_writers %>%
 #'     count(writer) %>%
 #'     arrange(desc(n)) %>%
 #'     head(5)
-"writers"
+"drwho_writers"

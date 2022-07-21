@@ -1,4 +1,4 @@
-# Extract data for complete seasons from classic and revived eras
+# Extract data for Torchwood
 
 # Packages ----
 
@@ -7,8 +7,8 @@ library(tidyverse)
 
 # Extract tables from url ----
 
-# set urls
-url <- "https://en.wikipedia.org/wiki/List_of_Doctor_Who_episodes_(1963-1989)"
+# set url
+url <- "https://en.wikipedia.org/wiki/List_of_Torchwood_episodes"
 
 # read the HTML code from the website
 webpage <- rvest::read_html(url)
@@ -21,48 +21,66 @@ rm(url, webpage)
 
 # Season 01 ----
 
-s01 <- tables[[3]]
+s01 <- tables[[2]]
 
-names(s01) <- c("story_number", "episode_number", "serial_title", "episode_title",
+names(s01) <- c("story_number", "episode_number", "episode_title",
                  "director", "writer", "first_aired", "production_code",
-                 "uk_viewers", "rating")
-
-s01 <- s01 %>%
-  mutate(era = "classic",
-         season_number = 1,
-         episode_title = gsub('.*"(.*)".*', "\\1", episode_title),
-         type = "episode",
-         first_aired = as.Date(gsub(".*\\((.*)\\).*", "\\1", first_aired)),
-         production_code = as.character(production_code),
-         duration = 25) %>%
-  group_by(story_number) %>%
-  mutate(episode_number = row_number()) %>%
-  select(era, season_number, serial_title, story_number, episode_number,
-         episode_title, type, director, writer, first_aired, production_code,
-         uk_viewers, rating, duration)
+                 "uk_viewers")
 
 s01_episodes <- s01 %>%
-  select(era:type, first_aired:duration)
+  select(story_number:episode_title, first_aired:uk_viewers) %>%
+  mutate(season_number = 1,
+         serial_title = NA,
+         episode_title = gsub('.*"(.*)".*', "\\1", episode_title),
+         first_aired = as.Date(gsub(".*\\((.*)\\).*", "\\1", first_aired)),
+         production_code = as.character(production_code),
+         duration = c(50, 48, 48, 50, 50, 50, 50, 53, 49, 50, 50, 50, 50)) %>%
+  select(season_number, serial_title, story_number, episode_number,
+         episode_title, everything())
+
 
 s01_directors <- s01 %>%
-  select(era:season_number, story_number, episode_number, director)
+  select(story_number,director)
 
 s01_writers <- s01 %>%
-  select(era:season_number, story_number, episode_number, writer) %>%
-  mutate(writer = str_replace(writer, "\\s*\\([^\\)]+\\)", "")) %>%
-  separate(writer, c("writer1", "writer2"), " and ") %>%
-  pivot_longer(!(era:episode_number), names_to = "writer_name", values_drop_na = TRUE) %>%
-  select(era:episode_number, writer = value)
-
-s10_writers <- s10 %>%
-  select(s)
-  filter(!story_number %in% c("Special (2016)", "Special (2017)", "Series")) %>%
   select(story_number, writer) %>%
-  separate(writer, c("writer1", "writer2"), " and ") %>%
+  separate(writer, c("writer1", "writer2"), " & ") %>%
   pivot_longer(!story_number, names_to = "writer_name", values_drop_na = TRUE) %>%
   select(story_number, writer = value)
 
-rm(s01)
+rm(s01, url, webpage)
+
+# Season 02 ----
+
+s02 <- tables[[3]]
+
+names(s02) <- c("story_number", "episode_number", "episode_title",
+                "director", "writer", "first_aired", "production_code",
+                "uk_viewers")
+
+s02_episodes <- s02 %>%
+  select(story_number:episode_title, first_aired:uk_viewers) %>%
+  mutate(season_number = 2,
+         serial_title = NA,
+         episode_title = gsub('.*"(.*)".*', "\\1", episode_title),
+         first_aired = as.Date(gsub(".*\\((.*)\\).*", "\\1", first_aired)),
+         production_code = as.character(production_code),
+         duration = c(50, 50, 50, 50, 50, 50, 50, 50, 50, 45, 50, 50, 50)) %>%
+  select(season_number, serial_title, story_number, episode_number,
+         episode_title, everything())
+
+
+s02_directors <- s02 %>%
+  select(story_number,director)
+
+s02_writers <- s02 %>%
+  select(story_number,writer)
+
+torchwood_episodes <- rbind(s01_episodes, s02_episodes)
+torchwood_directors <- rbind(s01_directors, s02_directors)
+torchwood_writers <- rbind(s01_writers, s02_writers)
+
+rm(s01, url, webpage)
 
 # Season 02 ----
 
@@ -614,12 +632,12 @@ s13_episodes <- s13 %>%
          episode_title = gsub('.*"(.*)".*', "\\1", episode_title),
          type = "episode",
          first_aired = as.Date(gsub(".*\\((.*)\\).*", "\\1", first_aired)),
-         uk_viewers = case_when(uk_viewers == "TBD" ~ NA_character_,
-                                TRUE ~ uk_viewers),
-         rating = case_when(rating == "TBA" ~ NA_character_,
-                            TRUE ~ rating),
+         # uk_viewers = case_when(uk_viewers == "TBD" ~ NA_character_,
+         #                        TRUE ~ uk_viewers),
+         # rating = case_when(rating == "TBA" ~ NA_character_,
+         #                    TRUE ~ rating),
          production_code = NA,
-         duration = c(50, 59, 49, 56, 50, NA)) %>%
+         duration = c(50, 59, 49, 56, 50, 59)) %>%
   mutate(episode_title = case_when(episode_title == "TBA" ~ NA_character_,
                                    TRUE ~ episode_title)) %>%
   select(era, season_number, serial_title, story_number, episode_number,
@@ -642,6 +660,52 @@ directors <- rbind(directors, s13_directors)
 writers <- rbind(writers, s13_writers)
 
 rm(s13_directors, s13_episodes, s13_writers)
+
+# 2022 Specials ----
+
+sp03 <- tables[[18]]
+
+names(sp03) <- c("story_number", "episode_number", "episode_title",
+                 "director", "writer", "first_aired",
+                 "uk_viewers", "rating")
+
+sp03_episodes <- sp03 %>%
+  select(story_number:episode_title, first_aired:rating) %>%
+  mutate(era = "revived",
+         season_number = NA,
+         serial_title = NA,
+         episode_title = gsub('.*"(.*)".*', "\\1", episode_title),
+         type = "special",
+         first_aired = as.Date(gsub(".*\\((.*)\\).*", "\\1", first_aired)),
+         uk_viewers = case_when(uk_viewers == "TBD" ~ NA_character_,
+                                TRUE ~ uk_viewers),
+         rating = case_when(rating == "TBA" ~ NA_character_,
+                            TRUE ~ rating),
+         production_code = NA,
+         duration = c(58, 48, NA)) %>%
+  mutate(episode_title = case_when(episode_title == "TBA" ~ NA_character_,
+                                   TRUE ~ episode_title)) %>%
+  select(era, season_number, serial_title, story_number, episode_number,
+         episode_title, type, everything())
+
+
+sp03_directors <- sp03 %>%
+  select(story_number,director)
+
+sp03_writers <- sp03 %>%
+  select(story_number, writer) %>%
+  separate(writer, c("writer1", "writer2"), " and ") %>%
+  pivot_longer(!story_number, names_to = "writer_name", values_drop_na = TRUE) %>%
+  select(story_number, writer = value)
+
+rm(sp03)
+
+drwho_episodes <- rbind(episodes, sp03_episodes)
+drwho_directors <- rbind(directors, sp03_directors)
+drwho_writers <- rbind(writers, sp03_writers)
+
+rm(sp03_directors, sp03_episodes, sp03_writers)
+
 
 # Set variable types ----
 
