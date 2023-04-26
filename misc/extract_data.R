@@ -30,6 +30,10 @@ tables <- get_tables("https://en.wikipedia.org/wiki/List_of_Doctor_Who_episodes_
     janitor::clean_names()
 )
 
+tables[[14]] |>
+  dplyr::mutate(prod_code = prod_code) |>
+  dplyr::select(1:9)
+
 str_detect()
 
 # set url
