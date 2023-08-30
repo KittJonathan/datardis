@@ -1,3 +1,9 @@
+# datardis 0.0.4
+
+* Added last Doctor Who episodes
+* Replaced %>% pipe with |>
+* Removed {magrittr} dependancy
+
 # datardis 0.0.3
 
 * Added latest Doctor Who episodes

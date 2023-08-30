@@ -22,9 +22,8 @@ List of writers for all episodes from the revived Doctor Who era (2005-present)
 }
 \examples{
 library(dplyr)
-drwho_writers \%>\%
-    count(writer) \%>\%
-    arrange(desc(n)) \%>\%
+drwho_writers |>
+    count(writer, sort = TRUE) |>
     head(5)
 }
 \keyword{datasets}

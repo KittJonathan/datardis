@@ -19,13 +19,12 @@
 #' }
 #'
 #' @import dplyr
-#' @import magrittr
 #'
 #' @source \url{https://en.wikipedia.org/wiki/List_of_Doctor_Who_episodes_(2005-present)}
 #'
 #' @examples
 #' library(dplyr)
-#' drwho_episodes %>%
+#' drwho_episodes |>
 #'     filter(type == "special")
 "drwho_episodes"
 
@@ -45,9 +44,8 @@
 #'
 #' @examples
 #' library(dplyr)
-#' drwho_directors %>%
-#'     count(director) %>%
-#'     arrange(desc(n)) %>%
+#' drwho_directors |>
+#'     count(director, sort = TRUE) |>
 #'     head(5)
 "drwho_directors"
 
@@ -67,9 +65,8 @@
 #'
 #' @examples
 #' library(dplyr)
-#' drwho_writers %>%
-#'     count(writer) %>%
-#'     arrange(desc(n)) %>%
+#' drwho_writers |>
+#'     count(writer, sort = TRUE) |>
 #'     head(5)
 "drwho_writers"
 
@@ -91,13 +88,12 @@
 #' }
 #'
 #' @import dplyr
-#' @import magrittr
 #'
 #' @source \url{https://en.wikipedia.org/wiki/List_of_Torchwood_episodes}
 #'
 #' @examples
 #' library(dplyr)
-#' torchwood_episodes %>%
+#' torchwood_episodes |>
 #'     filter(uk_viewers >= 5)
 "torchwood_episodes"
 
@@ -117,9 +113,9 @@
 #'
 #' @examples
 #' library(dplyr)
-#' torchwood_directors %>%
-#'     count(director) %>%
-#'     arrange(desc(n)) %>%
+#' torchwood_directors |>
+#'     count(director) |>
+#'     arrange(desc(n)) |>
 #'     head(5)
 "torchwood_directors"
 
@@ -139,8 +135,7 @@
 #'
 #' @examples
 #' library(dplyr)
-#' torchwood_writers %>%
-#'     count(writer) %>%
-#'     arrange(desc(n)) %>%
+#' torchwood_writers |>
+#'     count(writer, sort = TRUE) |>
 #'     head(5)
 "torchwood_writers"

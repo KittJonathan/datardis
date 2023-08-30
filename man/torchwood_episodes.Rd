@@ -29,7 +29,7 @@ List of all episodes from the Torchwood series (2006-2011)
 }
 \examples{
 library(dplyr)
-torchwood_episodes \%>\%
+torchwood_episodes |>
     filter(uk_viewers >= 5)
 }
 \keyword{datasets}

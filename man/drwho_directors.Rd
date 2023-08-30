@@ -22,9 +22,8 @@ List of directors for all episodes from the revived Doctor Who era (2005-present
 }
 \examples{
 library(dplyr)
-drwho_directors \%>\%
-    count(director) \%>\%
-    arrange(desc(n)) \%>\%
+drwho_directors |>
+    count(director, sort = TRUE) |>
     head(5)
 }
 \keyword{datasets}

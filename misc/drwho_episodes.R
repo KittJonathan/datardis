@@ -2,6 +2,7 @@
 
 # Packages ----
 
+library(rvest)
 library(tidyverse)
 
 
@@ -644,12 +645,12 @@ sp03_episodes <- sp03 %>%
          episode_title = gsub('.*"(.*)".*', "\\1", episode_title),
          type = "special",
          first_aired = as.Date(gsub(".*\\((.*)\\).*", "\\1", first_aired)),
-         uk_viewers = case_when(uk_viewers == "TBD" ~ NA_character_,
-                                TRUE ~ uk_viewers),
-         rating = case_when(rating == "TBA" ~ NA_character_,
-                            TRUE ~ rating),
+         # uk_viewers = case_when(uk_viewers == "TBD" ~ NA_character_,
+         #                        TRUE ~ uk_viewers),
+         # rating = case_when(rating == "TBA" ~ NA_character_,
+         #                    TRUE ~ rating),
          production_code = NA,
-         duration = c(58, 48, NA)) %>%
+         duration = c(58, 48, 87)) %>%
   mutate(episode_title = case_when(episode_title == "TBA" ~ NA_character_,
                                    TRUE ~ episode_title)) %>%
   select(era, season_number, serial_title, story_number, episode_number,

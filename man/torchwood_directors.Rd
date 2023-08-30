@@ -22,9 +22,9 @@ List of directors for all episodes from Torchwood series (2006-2011)
 }
 \examples{
 library(dplyr)
-torchwood_directors \%>\%
-    count(director) \%>\%
-    arrange(desc(n)) \%>\%
+torchwood_directors |>
+    count(director) |>
+    arrange(desc(n)) |>
     head(5)
 }
 \keyword{datasets}

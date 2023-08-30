@@ -32,7 +32,7 @@ List of all episodes from the revived Doctor Who era (2005-present)
 }
 \examples{
 library(dplyr)
-drwho_episodes \%>\%
+drwho_episodes |>
     filter(type == "special")
 }
 \keyword{datasets}
