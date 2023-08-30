@@ -1,11 +1,11 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# datardis 0.0.4
+# datardis <img src="misc/datardis_hex.png" align="right" height="240"/>
 
 <!-- badges: start -->
 
-<img src='https://cranlogs.r-pkg.org/badges/datardis'/><img src='https://cranlogs.r-pkg.org/badges/grand-total/datardis'/><img src='https://www.r-pkg.org/badges/version/datardis'/>
+<img src="https://cranlogs.r-pkg.org/badges/datardis"/><img src="https://cranlogs.r-pkg.org/badges/grand-total/datardis"/><img src="https://www.r-pkg.org/badges/version/datardis"/>
 
 <!-- badges: end -->
 
@@ -83,3 +83,9 @@ drwho_directors |>
 #> 4 Jamie Magnus Stone     8
 #> 5 James Strong           7
 ```
+
+## News: datardis v.0.0.4
+
+- added last Dr Who episodes (2022 specials)
+
+- replaced `%>%` pipe with `|>` pipe in examples
