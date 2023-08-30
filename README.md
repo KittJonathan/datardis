@@ -1,57 +1,56 @@
----
-output: github_document
----
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-
-
 
 # datardis 0.0.4
 
 <!-- badges: start -->
 
+\<img
+src=‘[https://cranlogs.r-pkg.org/badges/datardis/](https://cranlogs.r-pkg.org/badges/survivoR'/)\<img
+src=’[https://cranlogs.r-pkg.org/badges/grand-total/datardis’/](https://cranlogs.r-pkg.org/badges/grand-total/survivoR'/)\<img
+src=’[https://www.r-pkg.org/badges/version/datardis’/](https://www.r-pkg.org/badges/version/survivoR'/)
+
 <!-- badges: end -->
 
-The goal of datardis is to provide datasets from the **Doctor Who** and **Torchwood** TV shows.
+The goal of datardis is to provide datasets from the **Doctor Who** and
+**Torchwood** TV shows.
 
 Six datasets are available, three for each show:
 
 🎞️ **Dr Who**
 
--   **drwho_episodes**
+- **drwho_episodes**
 
--   **drwho_directors**
+- **drwho_directors**
 
--   **drwho_writers**
+- **drwho_writers**
 
 🎞️ **Torchwood**
 
--   **torchwood_episodes**
+- **torchwood_episodes**
 
--   **torchwood_directors**
+- **torchwood_directors**
 
--   **torchwood_writers**
+- **torchwood_writers**
 
 ## Installation
 
 You can download and install the package from CRAN:
 
-
-```r
+``` r
 install.packages("datardis")
 ```
 
-You can install the development version from [GitHub](https://github.com/) with:
+You can install the development version from
+[GitHub](https://github.com/) with:
 
-
-```r
+``` r
 devtools::install_github("KittJonathan/datardis")
 ```
 
 ## Examples
 
-
-```r
+``` r
 
 ## Load packages
 library(datardis)
