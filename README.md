@@ -5,10 +5,7 @@
 
 <!-- badges: start -->
 
-\<img
-src=‘[https://cranlogs.r-pkg.org/badges/datardis/](https://cranlogs.r-pkg.org/badges/survivoR'/)\<img
-src=’[https://cranlogs.r-pkg.org/badges/grand-total/datardis’/](https://cranlogs.r-pkg.org/badges/grand-total/survivoR'/)\<img
-src=’[https://www.r-pkg.org/badges/version/datardis’/](https://www.r-pkg.org/badges/version/survivoR'/)
+<img src='https://cranlogs.r-pkg.org/badges/datardis'/><img src='https://cranlogs.r-pkg.org/badges/grand-total/datardis'/><img src='https://www.r-pkg.org/badges/version/datardis'/>
 
 <!-- badges: end -->
 
