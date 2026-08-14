@@ -6,3 +6,4 @@ misc
 ^cran-comments\.md$
 ^CRAN-RELEASE$
 ^CRAN-SUBMISSION$
+^data-raw$

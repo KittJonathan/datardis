@@ -1,3 +1,7 @@
+# datardis 0.0.6
+
+* Added last Doctor Who episodes (2025)
+
 # datardis 0.0.5
 
 * Added last Doctor Who episodes (2023 and 2024)
